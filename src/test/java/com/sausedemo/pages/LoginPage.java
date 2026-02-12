@@ -29,5 +29,11 @@ public class LoginPage {
 	public void clickLoginButton() {
 		driver.findElement(loginButton).click();
 	}
+	
+	public void authorize(String userName, String password) {
+		enterUserName(userName);
+		enterPassword(password);
+		clickLoginButton();
+	}
 
 }

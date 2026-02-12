@@ -11,6 +11,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.sausedemo.pages.InventoryPage;
 import com.sausedemo.pages.LoginPage;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -36,12 +37,9 @@ public class LoginTest {
 	
 	@Test
 	public void loginStandardUser() {
-		loginPage.enterUserName(STANDARD_USERNAME);
-		loginPage.enterPassword(PASSWORD);
-		loginPage.clickLoginButton();
-		
-		WebElement inventory = driver.findElement(By.id("inventory_container"));
-		Assert.assertTrue(inventory.isDisplayed());
+		loginPage.authorize(STANDARD_USERNAME, PASSWORD);
+		InventoryPage inventoryPage = new InventoryPage(driver);
+		Assert.assertTrue(inventoryPage.isDisplayed());
 	}
 	
 	@AfterClass
