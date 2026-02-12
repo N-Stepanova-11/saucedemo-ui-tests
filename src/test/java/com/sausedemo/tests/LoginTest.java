@@ -1,4 +1,4 @@
-package com.sausedemo;
+package com.sausedemo.tests;
 
 import java.time.Duration;
 
@@ -11,31 +11,37 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.sausedemo.pages.LoginPage;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class LoginTest {
 	
-	public final String STANDART_USERNAME = "standard_user";
-	public final String PASSWORD = "secret_sauce";
+	public static final String STANDARD_USERNAME = "standard_user";
+	public static final String PASSWORD = "secret_sauce";
+	public static final String SAUSEDEMO_URL = "https://www.saucedemo.com/";
+	
+	LoginPage loginPage;
 	WebDriver driver;
 	
 	@BeforeClass
 	public void setup() {
 		WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();	
+        driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		driver.get("https://www.saucedemo.com/");
+		loginPage = new LoginPage(driver);
+		loginPage.open(SAUSEDEMO_URL);
 	}
 	
 	@Test
-	public void loginStandartUser() {
-		WebElement userName = driver.findElement(By.id("user-name")); 
-		WebElement password = driver.findElement(By.id("password"));
-		WebElement loginButton = driver.findElement(By.id("login-button"));
-		userName.sendKeys(STANDART_USERNAME);
-		password.sendKeys(PASSWORD);
-		loginButton.click();		
-		Assert.assertEquals(driver.getTitle(), "Swag Labs");
+	public void loginStandardUser() {
+		loginPage.enterUserName(STANDARD_USERNAME);
+		loginPage.enterPassword(PASSWORD);
+		loginPage.clickLoginButton();
+		
+		WebElement inventory = driver.findElement(By.id("inventory_container"));
+		Assert.assertTrue(inventory.isDisplayed());
 	}
 	
 	@AfterClass
