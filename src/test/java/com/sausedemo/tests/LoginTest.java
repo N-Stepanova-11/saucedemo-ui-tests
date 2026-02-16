@@ -18,6 +18,14 @@ import com.sausedemo.pages.LoginPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class LoginTest extends BaseTest{
+	
+	LoginPage loginPage; 
+	
+	@BeforeMethod
+	public void setup() {
+		super.setupWithoutAuthorize();
+		loginPage = new LoginPage(driver, wait);
+	}
 
 	@Test
 	public void authorizeStandardUser() {
