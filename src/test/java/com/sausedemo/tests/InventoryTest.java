@@ -22,8 +22,17 @@ public class InventoryTest extends BaseTest{
 	public void addProductToCart() {
 		loginPage.authorize(STANDARD_USERNAME, PASSWORD);
 		InventoryPage inventoryPage = new InventoryPage(driver, wait);
-		inventoryPage.addBackpackToCart();
-		Assert.assertTrue(inventoryPage.isRemoveButtonIsDisplayed());
+		String productName = "Sauce Labs Bike Light";
+		inventoryPage.addProductToCart(productName);
+		Assert.assertTrue(inventoryPage.isRemoveButtonIsDisplayed(productName));
 	}
-
+	
+	@Test
+	public void removeProductToCart() {
+		loginPage.authorize(STANDARD_USERNAME, PASSWORD);
+		InventoryPage inventoryPage = new InventoryPage(driver, wait);
+		String productName = "Sauce Labs Backpack";
+		inventoryPage.addProductToCart(productName);
+		inventoryPage.removeProductFromCart(productName);
+	}
 }
