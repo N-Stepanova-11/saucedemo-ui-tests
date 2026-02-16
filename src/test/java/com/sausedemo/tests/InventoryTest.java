@@ -4,7 +4,6 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -17,18 +16,14 @@ import com.sausedemo.pages.LoginPage;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class LoginTest extends BaseTest{
-
-	@Test
-	public void authorizeStandardUser() {
-		loginPage.authorize(STANDARD_USERNAME, PASSWORD);
-		InventoryPage inventoryPage = new InventoryPage(driver, wait);
-		Assert.assertTrue(inventoryPage.isInventoryContainerDisplayed());
-	}
+public class InventoryTest extends BaseTest{
 	
 	@Test
-	public void authorizeLockedOutUser() {
-		loginPage.authorize(LOCKED_OUT_USER, PASSWORD);
-		Assert.assertTrue(loginPage.errorButtonisDisplayed());
+	public void addProductToCart() {
+		loginPage.authorize(STANDARD_USERNAME, PASSWORD);
+		InventoryPage inventoryPage = new InventoryPage(driver, wait);
+		inventoryPage.addBackpackToCart();
+		Assert.assertTrue(inventoryPage.isRemoveButtonIsDisplayed());
 	}
+
 }

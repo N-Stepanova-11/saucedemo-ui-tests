@@ -2,20 +2,17 @@ package com.sausedemo.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage {
-	WebDriver driver;
+public class LoginPage extends BasePage{
 	
 	private By userNameField = By.id("user-name");
 	private By passwordField = By.id("password");
 	private By loginButton = By.id("login-button");
+	private By errorButton = By.className("error-button");
 	
-	public LoginPage(WebDriver driver) {
-        this.driver = driver;
-    }
-	
-	public void open(String url) {
-		driver.get(url);
+	public LoginPage(WebDriver driver, WebDriverWait wait) {
+		super(driver, wait);
 	}
 	
 	public void enterUserName(String userName) {
@@ -34,6 +31,11 @@ public class LoginPage {
 		enterUserName(userName);
 		enterPassword(password);
 		clickLoginButton();
+	}
+	
+	public boolean errorButtonisDisplayed() {
+		return isElementDisplayed(errorButton);
+		//return driver.findElement(errorButton).isDisplayed();
 	}
 
 }
