@@ -34,7 +34,7 @@ public class InventoryTest extends BaseTest{
 	}
 	
 	@Test
-	public void removeProductToCart() {
+	public void removeProductFromCart() {
 		String productName = "Sauce Labs Backpack";
 		inventoryPage.addProductToCart(productName);
 		inventoryPage.removeProductFromCart(productName);
@@ -45,6 +45,6 @@ public class InventoryTest extends BaseTest{
 	public void openEmptyCart() {
 		inventoryPage.openCart();
 		CartPage emptyCart = new CartPage(driver, wait);
-		Assert.assertTrue((emptyCart.isDisplayed()));
+		Assert.assertTrue((emptyCart.isCartDisplayed()));
 	}
 }

@@ -17,6 +17,6 @@ public class BasePage {
 	}
 	
 	protected boolean isElementDisplayed(By locator) {
-		return driver.findElement(locator).isDisplayed();
+		return driver.findElements(locator).size() > 0;
 	}
 }
